@@ -1,4 +1,3 @@
-var express = require('express');
 const express = require('express');
 const bodyParser = require('body-parser'); //Parse Request Body
 const path = require('path');
