@@ -29,3 +29,16 @@ exports.createHR = async (req, res) => {
         return commonResponse.sendUnexpected(res, error, req.languageCode);
     }
 };
+
+exports.login = async (req, res) => {
+    try{
+        const data = await service.login(req.body);
+        if(data.success){
+            return commonResponse.success(res, {}, req.languageCode, data.message);
+        }
+        return commonResponse.notFound(res, req.languageCode, data.message);
+    } catch (error) {
+        logger.error("Error createHR as ", error);
+        return commonResponse.sendUnexpected(res, error, req.languageCode);
+    }
+};

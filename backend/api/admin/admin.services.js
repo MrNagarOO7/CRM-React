@@ -16,3 +16,18 @@ exports.saveAdmin = async (data) => {
     }
 
 };
+
+exports.login = async (data) => {
+    const existAdmin = await Admin.findByDetails(data.username, data.username);
+
+    if(!existAdmin){
+        return { success: false, message: 'ADMIN_NOT_EXIST', data: existAdmin };
+    }
+
+    if (!bcrypt.compareSync(data.password,existAdmin.password)) {
+        return { success: false, message: 'PSW_INC', data: existAdmin };
+    }
+
+    return { success: true, data: existAdmin, message: 'LOGIN_SUCCESS' };
+};
+

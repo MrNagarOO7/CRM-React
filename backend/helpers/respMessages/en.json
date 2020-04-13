@@ -1,7 +1,13 @@
 {
   "ADMIN_EXIST": "Admin already exist.",
+  "ADMIN_NOT_EXIST": "Admin not exist.",
   "ADMIN_SIGNUP": "Admin signup successfully.",
+  "CREATE_HR": "Created HR successfully",
   "DEFAULT": "Action successfully performed.",
   "DEFAULTERR": "Opps! Something went wrong!!",
-  "DEFAULT_INTERNAL_SERVER_ERROR": "Internal server error!!"
+  "DEFAULT_INTERNAL_SERVER_ERROR": "Internal server error!!",
+  "HR_EXIST": "HR already exist.",
+  "HR_NOT_EXIST": "HR not exist.",
+  "LOGIN_SUCCESS": "Login successfully.",
+  "PSW_INC": "Password Incorrect."
 }

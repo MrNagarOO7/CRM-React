@@ -14,4 +14,10 @@ router.post(
     controller.createHR
 );
 
+router.post(
+    '/login',
+    validation.login,
+    controller.login
+);
+
 module.exports = router;
