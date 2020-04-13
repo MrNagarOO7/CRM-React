@@ -33,8 +33,12 @@ global.logger = winston.createLogger({
 
 // App Configuration Module
 const config = require('./config/index');
+const { dbcon } = require('./helpers');
 const routes = require('./routes');
 const app = express();
+
+global.mgConn = dbcon.getConnection(config.data.mongo);
+
 
 // Middleware
 app.use(cors());
@@ -77,6 +81,7 @@ routes.initialize(app);
 let listingport = process.env.PORT ? process.env.PORT : 9001;
 
 const server = app.listen(listingport,() => {
+  logger.info(`----------------------------------`);
   logger.info(`Server Listening on ${listingport}`);
   console.log(`Server Listening on ${listingport}`);
 });

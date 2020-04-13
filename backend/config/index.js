@@ -2,14 +2,11 @@ require('dotenv').config();
 
 exports.data = {
     mongo: {
-        host: process.env.DB_HOST,
-        port: parseInt(process.env.DB_PORT),
-        database: process.env.DB_NAME,
-        username: process.env.DB_USERNAME,
-        password: process.env.DB_PASSWORD
+        uri: process.env.DB_HOST,
     },
     jwt: {
-        teacherExpire: process.env.TEACHER_TOKEN_EXPIRE,
-        studentExpire: process.env.STUDENT_TOKEN_EXPIRE
+        adminExpire: process.env.ADMIN_TOKEN_EXPIRE,
+        hrExpire: process.env.HR_TOKEN_EXPIRE,
+        empExpire: process.env.EMP_TOKEN_EXPIRE
     },
 };
