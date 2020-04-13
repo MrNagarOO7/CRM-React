@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 exports.getConnection = async (config) => {
     await mongoose.connect(config.uri, {
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
+        useCreateIndex: true,
     }).then(() => {
         console.log("Mongodb Connected");
         logger.info("Mongodb Connected")

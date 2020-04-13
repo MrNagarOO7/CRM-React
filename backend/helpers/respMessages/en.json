@@ -1,0 +1,7 @@
+{
+  "ADMIN_EXIST": "Admin already exist.",
+  "ADMIN_SIGNUP": "Admin signuo successfully.",
+  "DEFAULT": "Action successfully performed.",
+  "DEFAULTERR": "Opps! Something went wrong!!",
+  "DEFAULT_INTERNAL_SERVER_ERROR": "Internal server error!!"
+}
