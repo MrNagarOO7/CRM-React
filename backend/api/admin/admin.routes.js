@@ -8,4 +8,10 @@ router.post(
     controller.signup
 );
 
+router.post(
+    '/hr',
+    validation.createHR,
+    controller.createHR
+);
+
 module.exports = router;

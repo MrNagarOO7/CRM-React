@@ -45,12 +45,7 @@ exports.findByDetails = async (username = null, email = null) => {
 };
 
 exports.createAdmin = async (data) => {
-    let admin = new Admin({
-        name: data.name,
-        email: data.email,
-        password: data.password,
-        username: data.username
-    });
+    let admin = new Admin(data);
     await admin.save();
     return admin;
 };
