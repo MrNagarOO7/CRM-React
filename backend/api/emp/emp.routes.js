@@ -9,13 +9,6 @@ router.post(
     controller.login
 );
 
-router.post(
-    '/emp',
-    guards.isAuthorized('hr'),
-    validation.createEmp,
-    controller.createEmp
-);
-
 router.use(function (req, res, next) {
     if (!req.route) {
         return commonResponse.notFound(res, req.languageCode, 'NOT_FOUND');

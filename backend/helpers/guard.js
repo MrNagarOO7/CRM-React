@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const commonResponse = require('./response');
 const config = require('../config');
 const adminService = require('../api/admin/admin.services');
+const hrService = require('../api/hr/hr.services');
 
 
 const createAdminToken = (admin) => {
@@ -56,6 +57,16 @@ const   isAuthorized = (user) => async (req, res, next) => {
                 }
             }
         } else if (user === 'hr') {
+            if(req.user.type !== 'hr'){
+                commonResponse.unAuthentication(res, {}, req.languageCode);
+            } else {
+                const hr = await hrService.findById(req.user.id);
+                if(!hr){
+                    commonResponse.unAuthentication(res, {}, req.languageCode,'HR_NOT_EXIST');
+                } else {
+                    next();
+                }
+            }
         } else {
         }
     } else {

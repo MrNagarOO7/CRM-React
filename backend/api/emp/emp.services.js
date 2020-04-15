@@ -1,18 +1,18 @@
-const HR = require('./hr.model');
+const Emp = require('./emp.model');
 const bcrypt = require('bcryptjs');
 
-exports.saveHR = async (data) => {
-    const existHR = await HR.findByDetails(data.username, data.email, data.mobile);
+exports.saveEmp = async (data) => {
+    const existEmp = await Emp.findByDetails(data.id, data.email, data.mobile);
 
-    if(existHR){
-        return { success: false, message: 'HR_EXIST', data: existHR };
+    if(existEmp){
+        return { success: false, message: 'EMP_EXIST', data: existEmp };
     }
     data.password = bcrypt.hashSync(data.password, bcrypt.genSaltSync(4), null);
 
-    const hrInfo = await HR.createHR(data);
+    const empInfo = await Emp.createEMP(data);
 
-    if(hrInfo){
-        return { success: true, data: hrInfo, message: 'CREATE_HR' };
+    if(empInfo){
+        return { success: true, data: empInfo, message: 'CREATE_EMP' };
     }
 
 };
@@ -31,9 +31,4 @@ exports.login = async (data) => {
     }
 
     return { success: true, data: existHR, message: 'LOGIN_SUCCESS' };
-};
-
-exports.findById = async (id) => {
-    const existHr = await  HR.findById(id);
-    return existHr;
 };
