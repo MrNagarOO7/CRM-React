@@ -80,3 +80,8 @@ exports.fetchListOfEmpsForAdmin = async (admin_id = null) => {
         .exec();
         return datas;
 };
+
+exports.fetchListOfEmps = async (hr_id = null) => {
+    return await Emp
+        .find({hr_id}, 'email', { lean: true });
+};

@@ -42,3 +42,11 @@ exports.fetchListEmpsForAdmin = async(admin_id) => {
     }
     return { success: false, data: {}, message: 'NO_EMP_FOUND' };
 };
+
+exports.fetchListEmps = async(hr_id) => {
+    const emps = await Emp.fetchListOfEmps(hr_id);
+    if(emps && emps.length > 0){
+        return { success: true, data: emps, message: 'LIST_EMP' };
+    }
+    return { success: false, data: {}, message: 'NO_EMP_FOUND' };
+};

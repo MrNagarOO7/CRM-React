@@ -16,6 +16,12 @@ router.post(
     controller.createEmp
 );
 
+router.get(
+    '/emps',
+    guards.isAuthorized('hr'),
+    controller.listEmps
+);
+
 router.use(function (req, res, next) {
     if (!req.route) {
         return commonResponse.notFound(res, req.languageCode, 'NOT_FOUND');
