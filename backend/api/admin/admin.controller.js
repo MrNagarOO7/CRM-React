@@ -40,7 +40,7 @@ exports.login = async (req, res) => {
         }
         return commonResponse.notFound(res, req.languageCode, data.message);
     } catch (error) {
-        logger.error("Error createHR as ", error);
+        logger.error("Error login as ", error);
         return commonResponse.sendUnexpected(res, error, req.languageCode);
     }
 };

@@ -16,3 +16,19 @@ exports.saveHR = async (data) => {
     }
 
 };
+
+exports.login = async (data) => {
+    let mobile = (typeof data.username === "number") ? data.username : null;
+
+    const existHR = await HR.findByDetails(data.username, data.username, mobile);
+
+    if(!existHR){
+        return { success: false, message: 'HR_NOT_EXIST', data: existHR };
+    }
+
+    if (!bcrypt.compareSync(data.password,existHR.password)) {
+        return { success: false, message: 'PSW_INC', data: existHR };
+    }
+
+    return { success: true, data: existHR, message: 'LOGIN_SUCCESS' };
+};

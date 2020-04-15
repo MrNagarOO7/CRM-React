@@ -17,6 +17,19 @@ const createAdminToken = (admin) => {
     return payload;
 };
 
+const createHRToken = (hr) => {
+    const payload = {
+        id: hr._id.toString(),
+        email: hr.email,
+        name: hr.name,
+        username: hr.username,
+        type: 'hr',
+    };
+    const token = jwt.sign(payload, process.env.JWTSECRET, { expiresIn: config.data.jwt.adminExpire });
+    payload.token = token;
+    return payload;
+};
+
 const verifyJWT = (req, res) => {
     try {
         const token = req.headers.authorization;
@@ -52,5 +65,6 @@ const   isAuthorized = (user) => async (req, res, next) => {
 
 module.exports = {
     createAdminToken,
+    createHRToken,
     isAuthorized
 };
