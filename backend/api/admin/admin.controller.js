@@ -1,4 +1,4 @@
-const { commonResponse} = require('../../helpers');
+const { commonResponse, guards } = require('../../helpers');
 const service = require('./admin.services');
 const hrService = require('../hr/hr.services');
 
@@ -18,8 +18,9 @@ exports.signup = async (req, res) => {
 exports.createHR = async (req, res) => {
     try{
         // ADD Admin Id using JWT
-        // req.body.admin_id = "5e94b1a2ad3d313ec0f72609";
-        const data = await hrService.saveHR(req.body);
+        let hrData = req.body;
+        hrData.admin_id = req.user.id;
+        const data = await hrService.saveHR(hrData);
         if(data.success){
             return commonResponse.success(res, {}, req.languageCode, data.message);
         }
@@ -34,7 +35,8 @@ exports.login = async (req, res) => {
     try{
         const data = await service.login(req.body);
         if(data.success){
-            return commonResponse.success(res, {}, req.languageCode, data.message);
+            let token = guards.createAdminToken(data.data._doc);
+            return commonResponse.success(res, token.token, req.languageCode, data.message);
         }
         return commonResponse.notFound(res, req.languageCode, data.message);
     } catch (error) {

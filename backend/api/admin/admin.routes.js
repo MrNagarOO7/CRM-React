@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const validation = require('./admin.validation');
 const controller = require('./admin.controller');
+const { commonResponse, guards} = require('../../helpers');
 
 router.post(
     '/signup',
@@ -10,6 +11,7 @@ router.post(
 
 router.post(
     '/hr',
+    guards.isAuthorized('admin'),
     validation.createHR,
     controller.createHR
 );
@@ -19,5 +21,11 @@ router.post(
     validation.login,
     controller.login
 );
+
+router.use(function (req, res, next) {
+    if (!req.route) {
+        return commonResponse.notFound(res, req.languageCode, 'NOT_FOUND');
+    }
+});
 
 module.exports = router;

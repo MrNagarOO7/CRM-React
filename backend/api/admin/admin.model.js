@@ -44,6 +44,10 @@ exports.findByDetails = async (username = null, email = null) => {
         })
 };
 
+exports.findById = async (id = null) => {
+    return await Admin.findById(id);
+};
+
 exports.createAdmin = async (data) => {
     let admin = new Admin(data);
     await admin.save();

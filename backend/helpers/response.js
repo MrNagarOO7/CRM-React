@@ -66,3 +66,14 @@ exports.sendUnexpected = (res, err, languageCode = 'en', code = 'DEFAULT_INTERNA
     };
     return res.status(statusCode).send(resData);
 };
+
+exports.unAuthentication = (res, data, languageCode = 'en', code = 'DEFAULT_AUTH', statusCode = 401) => {
+    const resData = {
+        success: false,
+        statusCode: statusCode,
+        message: resParam.getMessage(code, languageCode),
+        data,
+        messageCode: 'DEFAULT_AUTH'
+    };
+    return res.status(statusCode).send(resData);
+};

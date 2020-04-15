@@ -5,6 +5,7 @@
   "CREATE_HR": "Created HR successfully",
   "DEFAULT": "Action successfully performed.",
   "DEFAULTERR": "Opps! Something went wrong!!",
+  "DEFAULT_AUTH": "User is not authenticated",
   "DEFAULT_INTERNAL_SERVER_ERROR": "Internal server error!!",
   "HR_EXIST": "HR already exist.",
   "HR_NOT_EXIST": "HR not exist.",

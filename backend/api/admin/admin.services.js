@@ -31,3 +31,7 @@ exports.login = async (data) => {
     return { success: true, data: existAdmin, message: 'LOGIN_SUCCESS' };
 };
 
+exports.findById = async (id) => {
+    const existAdmin = await  Admin.findById(id);
+    return existAdmin;
+};
