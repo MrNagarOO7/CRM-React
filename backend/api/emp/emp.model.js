@@ -13,7 +13,6 @@ const empSchema = new mongoose.Schema({
         },
         id: {
             type: String,
-            unique: true,
             minlength: 5,
             maxlength: 50
         },
@@ -48,13 +47,20 @@ const empSchema = new mongoose.Schema({
 const Emp = mongoose.model('emp', empSchema);
 
 exports.findByDetails = async (id = null, email = null, mobile = null) => {
+    let condition = [];
+    if(id) {
+        condition.push({id});
+    }
+    if(email) {
+        condition.push({email});
+    }
+    if(mobile) {
+        condition.push({mobile});
+    }
+
     return await Emp.findOne(
         {
-            $or:[
-                {id},
-                {email},
-                {mobile}
-            ]
+            $or: condition
         })
 };
 
@@ -62,4 +68,15 @@ exports.createEMP = async (data) => {
     let emp = new Emp(data);
     await emp.save();
     return emp;
+};
+
+exports.fetchListOfEmpsForAdmin = async (admin_id = null) => {
+        let datas = await Emp
+        .find({}, 'email', { lean: true })
+        .populate({
+            path: 'hrs',
+            match: { admin_id},
+        })
+        .exec();
+        return datas;
 };

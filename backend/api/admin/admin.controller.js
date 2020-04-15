@@ -1,6 +1,7 @@
 const { commonResponse, guards } = require('../../helpers');
 const service = require('./admin.services');
 const hrService = require('../hr/hr.services');
+const empService = require('../emp/emp.services');
 
 exports.signup = async (req, res) => {
     try{
@@ -41,6 +42,19 @@ exports.login = async (req, res) => {
         return commonResponse.notFound(res, req.languageCode, data.message);
     } catch (error) {
         logger.error("Error login as ", error);
+        return commonResponse.sendUnexpected(res, error, req.languageCode);
+    }
+};
+
+exports.listEmps = async (req, res) => {
+    try{
+        const data = await empService.fetchListEmpsForAdmin(req.user.id);
+        if(data.success){
+            return commonResponse.success(res, data.data, req.languageCode, data.message);
+        }
+        return commonResponse.notFound(res, req.languageCode, data.message);
+    }catch (error) {
+        logger.error("Error listEmps as ", error);
         return commonResponse.sendUnexpected(res, error, req.languageCode);
     }
 };

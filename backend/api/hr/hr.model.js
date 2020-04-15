@@ -13,7 +13,6 @@ const hrSchema = new mongoose.Schema({
         },
         username: {
             type: String,
-            unique: true,
             minlength: 5,
             maxlength: 50
         },
@@ -48,13 +47,19 @@ const hrSchema = new mongoose.Schema({
 const HR = mongoose.model('hr', hrSchema);
 
 exports.findByDetails = async (username = null, email = null, mobile = null) => {
+    let condition = [];
+    if(username) {
+        condition.push({username});
+    }
+    if(email) {
+        condition.push({email});
+    }
+    if(mobile) {
+        condition.push({mobile});
+    }
     return await HR.findOne(
         {
-            $or:[
-                {username},
-                {email},
-                {mobile}
-            ]
+            $or: condition
         })
 };
 

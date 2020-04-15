@@ -35,12 +35,18 @@ const adminSchema = new mongoose.Schema({
 const Admin = mongoose.model('admin', adminSchema);
 
 exports.findByDetails = async (username = null, email = null) => {
+    let condition = [];
+
+    if(username){
+        condition.push({username});
+    }
+    if(email){
+        condition.push({email});
+    }
+
     return await Admin.findOne(
         {
-            $or:[
-                {username},
-                {email}
-                ]
+            $or: condition
         })
 };
 

@@ -12,6 +12,8 @@
   "EMP_NOT_EXIST": "Employee not exist.",
   "HR_EXIST": "HR already exist.",
   "HR_NOT_EXIST": "HR not exist.",
+  "LIST_EMP": "List Of Employee fetched.",
   "LOGIN_SUCCESS": "Login successfully.",
+  "NO_EMP_FOUND": "No employees found.",
   "PSW_INC": "Password Incorrect."
 }

@@ -4,6 +4,8 @@ const bcrypt = require('bcryptjs');
 exports.saveEmp = async (data) => {
     const existEmp = await Emp.findByDetails(data.id, data.email, data.mobile);
 
+    console.log("Exist emp ==>", existEmp);
+
     if(existEmp){
         return { success: false, message: 'EMP_EXIST', data: existEmp };
     }
@@ -31,4 +33,12 @@ exports.login = async (data) => {
     }
 
     return { success: true, data: existEmp, message: 'LOGIN_SUCCESS' };
+};
+
+exports.fetchListEmpsForAdmin = async(admin_id) => {
+    const emps = await Emp.fetchListOfEmpsForAdmin(admin_id);
+    if(emps && emps.length > 0){
+        return { success: true, data: emps, message: 'LIST_EMP' };
+    }
+    return { success: false, data: {}, message: 'NO_EMP_FOUND' };
 };

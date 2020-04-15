@@ -22,6 +22,12 @@ router.post(
     controller.login
 );
 
+router.get(
+    '/emps',
+    guards.isAuthorized('admin'),
+    controller.listEmps
+);
+
 router.use(function (req, res, next) {
     if (!req.route) {
         return commonResponse.notFound(res, req.languageCode, 'NOT_FOUND');
