@@ -10,6 +10,7 @@
   "DEFAULT_INTERNAL_SERVER_ERROR": "Internal server error!!",
   "EMP_EXIST": "Employee already exist.",
   "EMP_NOT_EXIST": "Employee not exist.",
+  "GET_EMP": "Get Employee profile.",
   "HR_EXIST": "HR already exist.",
   "HR_NOT_EXIST": "HR not exist.",
   "LIST_EMP": "List Of Employee fetched.",

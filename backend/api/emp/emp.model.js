@@ -85,3 +85,8 @@ exports.fetchListOfEmps = async (hr_id = null) => {
     return await Emp
         .find({hr_id}, 'email', { lean: true });
 };
+
+exports.findByID = async (id = null) => {
+    return await Emp
+        .findById(id);
+};

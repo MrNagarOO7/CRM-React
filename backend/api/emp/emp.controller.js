@@ -14,3 +14,16 @@ exports.login = async (req, res) => {
         return commonResponse.sendUnexpected(res, error, req.languageCode);
     }
 };
+
+exports.getProfile = async (req, res) => {
+    try{
+        const data = await service.getEmp(req.user.id);
+        if(data.success){
+            return commonResponse.success(res, data.data, req.languageCode, data.message);
+        }
+        return commonResponse.notFound(res, req.languageCode, data.message);
+    } catch (error) {
+        logger.error("Error getProfile as ", error);
+        return commonResponse.sendUnexpected(res, error, req.languageCode);
+    }
+};

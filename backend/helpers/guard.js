@@ -3,6 +3,7 @@ const commonResponse = require('./response');
 const config = require('../config');
 const adminService = require('../api/admin/admin.services');
 const hrService = require('../api/hr/hr.services');
+const empService = require('../api/emp/emp.services');
 
 
 const createAdminToken = (admin) => {
@@ -81,6 +82,11 @@ const   isAuthorized = (user) => async (req, res, next) => {
                 }
             }
         } else {
+            if(req.user.type !== 'emp'){
+                commonResponse.unAuthentication(res, {}, req.languageCode);
+            } else {
+                next();
+            }
         }
     } else {
         commonResponse.unAuthentication(res, {});
