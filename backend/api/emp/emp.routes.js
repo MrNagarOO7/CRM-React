@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const validation = require('./hr.validation');
-const controller = require('./hr.controller');
-const { commonResponse, guards} = require('../../helpers');
+const validation = require('./emp.validation');
+const controller = require('./emp.controller');
+const { commonResponse } = require('../../helpers');
 
 router.post(
     '/login',

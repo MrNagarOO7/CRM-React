@@ -1,5 +1,5 @@
-const hrRoutes = require('./hr.routes');
+const empRoutes = require('./emp.routes');
 
 module.exports = {
-    hrRoutes
+    empRoutes
 };
