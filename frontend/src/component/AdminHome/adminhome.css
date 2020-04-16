@@ -1,0 +1,15 @@
+.container{
+    margin-top: 30px;
+}
+
+.card{
+    padding: 10px;
+}
+
+.navigation{
+    display: flex;
+}
+
+.nav-btn{
+    width: -webkit-fill-available ;
+}
