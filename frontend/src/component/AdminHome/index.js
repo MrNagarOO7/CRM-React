@@ -47,6 +47,10 @@ class AdminHome extends React.Component {
                         });
                         console.log(err.response);
                     });
+            } else {
+                this.props.toast.error("Please, Provide Valid Details.", {
+                    position: this.props.toast.POSITION.TOP_RIGHT
+                });
             }
         };
 
@@ -80,6 +84,10 @@ class AdminHome extends React.Component {
                     });
                     console.log(err.response);
                 });
+        } else {
+            this.props.toast.error("Please, Provide Valid Details.", {
+                position: this.props.toast.POSITION.TOP_RIGHT
+            });
         }
     };
 
