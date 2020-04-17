@@ -1,17 +1,15 @@
 import React from 'react';
 import axios from 'axios';
 
-class AdminDashboard extends React.Component {
+class HRDashboard extends React.Component {
     constructor(props) {
-        console.log("props==>", props);
         super(props);
         this.state = {
-            tab: "emps",
             emps: [],
-            create_hr_style:"",
-            hr: {
+            create_hr_style: "",
+            emp: {
                 name: '',
-                username: '',
+                id: '',
                 email: '',
                 password: ''
             }
@@ -21,35 +19,25 @@ class AdminDashboard extends React.Component {
     fetchEmployeeList = () => {
         let token = localStorage.getItem('token');
         axios
-            .get(this.props.config.api_server + '/admin/emps',{
+            .get(this.props.config.api_server + '/hr/emps',{
                 headers: {
                     'Content-Type': 'application/json; charset=UTF-8',
                     'Authorization': token
                 }
             })
             .then(resp => {
-                // this.props.toast.success(resp.data.message,{
-                //     position: this.props.toast.POSITION.TOP_RIGHT
-                // });
-                for(let emp of resp.data.data){
-                    emp.status = 'Offline';
-                    emp.login_time = null
-                }
                 this.setState({emps:resp.data.data});
             })
             .catch(err => {
-                this.props.toast.error(err.response.data.message, {
-                    position: this.props.toast.POSITION.TOP_RIGHT
-                });
                 console.log(err.response);
             });
     };
 
-    addHR = () => {
-        if(this.state.hr.email && this.state.hr.password){
+    addEmp = () => {
+        if(this.state.emp.email && this.state.emp.password){
             let token = localStorage.getItem('token');
             axios
-                .post(this.props.config.api_server + '/admin/hr', this.state.hr,{
+                .post(this.props.config.api_server + '/hr/emp', this.state.emp,{
                     headers: {
                         'Content-Type': 'application/json; charset=UTF-8',
                         'Authorization': token
@@ -76,19 +64,19 @@ class AdminDashboard extends React.Component {
       } else {
           this.setState({create_hr_style: ''})
       }
-      let  hr = {
+      let  emp = {
             name: '',
-            username: '',
+            id: '',
             email: '',
             password: ''
       };
-      this.setState({hr});
+      this.setState({emp});
     };
 
     logout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        this.props.history.push('/admin')
+        this.props.history.push('/')
     };
 
     componentWillMount() {
@@ -100,7 +88,7 @@ class AdminDashboard extends React.Component {
             <div className={'AdminDashboard'}>
                 <div className={'header'}>
                     <nav className="navbar navbar-light bg-light justify-content-between">
-                        <a className="navbar-brand">Admin Dashboard</a>
+                        <a className="navbar-brand">HR Dashboard</a>
                         <div>
                             <button
                                 className={'btn btn-primary'}
@@ -109,7 +97,7 @@ class AdminDashboard extends React.Component {
                                     this.changeModelState();
                                 }}
                             >
-                                Add HR
+                                Add Employee
                             </button>
                             <button
                                 className={'btn btn-secondary'}
@@ -133,8 +121,6 @@ class AdminDashboard extends React.Component {
                                            <th scope="col">#</th>
                                            <th scope="col">Employee Name</th>
                                            <th scope="col">Employee Email</th>
-                                           <th scope="col">Status</th>
-                                           <th scope="col">Login Time</th>
                                        </tr>
                                        </thead>
                                        <tbody>
@@ -145,15 +131,13 @@ class AdminDashboard extends React.Component {
                                                        <th scope="row">{index+1}</th>
                                                        <td>{emp.name}</td>
                                                        <td>{emp.email}</td>
-                                                       <td>{emp.status}</td>
-                                                       <td>{emp.login_time}</td>
                                                    </tr>
                                                )
                                            })
                                        }
                                        </tbody>
                                    </table> :
-                                   <h1> No Data Found</h1>
+                                   <h3> No Data Found</h3>
                            }
                        </div>
                    </div>
@@ -162,7 +146,7 @@ class AdminDashboard extends React.Component {
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalLabel">Add HR</h5>
+                                <h5 className="modal-title" id="exampleModalLabel">Add Employee</h5>
                                 <button type="button"
                                         className="close"
                                         onClick={() => {
@@ -172,30 +156,30 @@ class AdminDashboard extends React.Component {
                                 </button>
                             </div>
                             <form>
-                            <div className="modal-body">
+                                <div className="modal-body">
                                     <div className="form-group">
                                         <label>Name</label>
                                         <input type="text"
                                                className="form-control"
                                                placeholder="Enter Name"
                                                onChange={(e) => {
-                                                   let hr = Object.assign({},this.state.hr);
-                                                   hr.name = e.target.value;
-                                                   this.setState({hr})
-                                                }
+                                                   let emp = Object.assign({},this.state.emp);
+                                                   emp.name = e.target.value;
+                                                   this.setState({emp})
+                                               }
                                                }>
                                         </input>
                                     </div>
                                     <div className="form-group">
-                                        <label>Username</label>
+                                        <label>Id</label>
                                         <input type="text"
                                                className="form-control"
-                                               placeholder="Enter Username"
+                                               placeholder="Enter Employee Id"
                                                onChange={(e) => {
-                                                   let hr = Object.assign({},this.state.hr);
-                                                   hr.username = e.target.value;
-                                                   this.setState({hr})
-                                                }
+                                                   let emp = Object.assign({},this.state.emp);
+                                                   emp.id = e.target.value;
+                                                   this.setState({emp})
+                                               }
                                                }>
                                         </input>
                                     </div>
@@ -205,10 +189,10 @@ class AdminDashboard extends React.Component {
                                                className="form-control"
                                                placeholder="Enter Email"
                                                onChange={(e) => {
-                                                   let hr = Object.assign({},this.state.hr);
-                                                   hr.email = e.target.value;
-                                                   this.setState({hr})
-                                                }
+                                                   let emp = Object.assign({},this.state.emp);
+                                                   emp.email = e.target.value;
+                                                   this.setState({emp})
+                                               }
                                                }
                                                required>
                                         </input>
@@ -219,33 +203,33 @@ class AdminDashboard extends React.Component {
                                                className="form-control"
                                                placeholder="Password"
                                                onChange={(e) => {
-                                                   let hr = Object.assign({},this.state.hr);
-                                                   hr.password = e.target.value;
-                                                   this.setState({hr})
-                                                }
+                                                   let emp = Object.assign({},this.state.emp);
+                                                   emp.password = e.target.value;
+                                                   this.setState({emp})
+                                               }
                                                }
                                                required>
                                         </input>
                                     </div>
-                            </div>
-                            <div className="modal-footer">
-                                <button
-                                    type="button"
-                                    className="btn btn-secondary"
-                                    onClick={() => {
-                                        this.changeModelState();
-                                    }}
-                                >Close</button>
-                                <button
-                                    type="submit"
-                                    className="btn btn-primary"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        e.stopPropagation();
-                                        this.addHR();
-                                    }}
-                                >Submit</button>
-                            </div>
+                                </div>
+                                <div className="modal-footer">
+                                    <button
+                                        type="button"
+                                        className="btn btn-secondary"
+                                        onClick={() => {
+                                            this.changeModelState();
+                                        }}
+                                    >Close</button>
+                                    <button
+                                        type="submit"
+                                        className="btn btn-primary"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            this.addEmp();
+                                        }}
+                                    >Submit</button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -255,6 +239,6 @@ class AdminDashboard extends React.Component {
     };
 }
 
-export default AdminDashboard;
+export default HRDashboard;
 
 

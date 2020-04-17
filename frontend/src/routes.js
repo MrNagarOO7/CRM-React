@@ -4,6 +4,7 @@ import {createBrowserHistory} from "history";
 import AdminHome from "./component/AdminHome/index";
 import Home from "./component/Home/index";
 import AdminDashboard from "./component/AdminDashboard/index";
+import HrDashboard from "./component/HrDashboard/index";
 import config from './config';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -26,6 +27,10 @@ const AppRouter = () => (
                     <Route
                         path="/admin/dashboard"
                         render={(props) => <AdminDashboard {...props} config={config} toast={toast}/>}
+                    />
+                    <Route
+                        path="/hr/dashboard"
+                        render={(props) => <HrDashboard {...props} config={config} toast={toast}/>}
                     />
             </Switch>
         </div>

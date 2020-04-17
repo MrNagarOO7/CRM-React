@@ -72,7 +72,7 @@ exports.createEMP = async (data) => {
 
 exports.fetchListOfEmpsForAdmin = async (admin_id = null) => {
         let datas = await Emp
-        .find({}, 'email', { lean: true })
+        .find({}, 'email name', { lean: true })
         .populate({
             path: 'hrs',
             match: { admin_id},
@@ -83,7 +83,7 @@ exports.fetchListOfEmpsForAdmin = async (admin_id = null) => {
 
 exports.fetchListOfEmps = async (hr_id = null) => {
     return await Emp
-        .find({hr_id}, 'email', { lean: true });
+        .find({hr_id}, 'email name', { lean: true });
 };
 
 exports.findByID = async (id = null) => {
