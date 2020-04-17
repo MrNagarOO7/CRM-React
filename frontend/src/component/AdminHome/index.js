@@ -4,7 +4,6 @@ import axios from 'axios';
 
 class AdminHome extends React.Component {
     constructor(props) {
-        console.log("props==>", props);
         super(props);
         this.state = {
             tab: "login",
@@ -23,9 +22,10 @@ class AdminHome extends React.Component {
 
     registerAdmin = () => {
             let flag = true;
-            for(let key in Object.keys(this.state.register)){
+            for(let key of Object.keys(this.state.register)){
                 if(this.state.register[key] === ''){
                     flag = false;
+                    break;
                 }
             }
             if(flag){
@@ -52,9 +52,10 @@ class AdminHome extends React.Component {
 
     loginAdmin = () => {
         let flag = true;
-        for(let key in Object.keys(this.state.login)){
-            if(this.state.register[key] === ''){
+        for(let key of Object.keys(this.state.login)){
+            if(this.state.login[key] === ''){
                 flag = false;
+                break;
             }
         }
         if(flag){
@@ -70,7 +71,8 @@ class AdminHome extends React.Component {
                     });
                     console.log(resp);
                     localStorage.setItem('token', resp.data.data);
-                    this.props.history.push('/admin')
+                    localStorage.setItem('user', 'admin');
+                    this.props.history.push('/admin/dashboard')
                 })
                 .catch(err => {
                     this.props.toast.error(err.response.data.message, {

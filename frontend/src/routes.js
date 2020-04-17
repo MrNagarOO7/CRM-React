@@ -3,6 +3,7 @@ import { Router, Route, Switch } from "react-router-dom";
 import {createBrowserHistory} from "history";
 import AdminHome from "./component/AdminHome/index";
 import Home from "./component/Home/index";
+import AdminDashboard from "./component/AdminDashboard/index";
 import config from './config';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -18,9 +19,13 @@ const AppRouter = () => (
                            path="/"
                            render={(props) => <Home {...props} config={config} toast={toast}/>}
                     />
-                    <Route
+                    <Route exact
                         path="/admin"
                         render={(props) => <AdminHome {...props} config={config} toast={toast}/>}
+                    />
+                    <Route
+                        path="/admin/dashboard"
+                        render={(props) => <AdminDashboard {...props} config={config} toast={toast}/>}
                     />
             </Switch>
         </div>
