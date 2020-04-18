@@ -129,18 +129,18 @@ class AdminDashboard extends React.Component {
                 <div className={'body'}>
                    <div className={'row'} style={{"marginLeft":0, "marginRight":0}}>
                        <div className={'col-12'}>
+                           <table className="table">
+                               <thead className="thead-dark">
+                               <tr>
+                                   <th scope="col">#</th>
+                                   <th scope="col">Employee Name</th>
+                                   <th scope="col">Employee Email</th>
+                                   <th scope="col">Status</th>
+                                   <th scope="col">Login Time</th>
+                               </tr>
+                               </thead>
                            {
                                this.state.emps.length > 0 ?
-                                   <table className="table">
-                                       <thead className="thead-dark">
-                                       <tr>
-                                           <th scope="col">#</th>
-                                           <th scope="col">Employee Name</th>
-                                           <th scope="col">Employee Email</th>
-                                           <th scope="col">Status</th>
-                                           <th scope="col">Login Time</th>
-                                       </tr>
-                                       </thead>
                                        <tbody>
                                        {
                                            this.state.emps.map((emp, index) => {
@@ -155,10 +155,10 @@ class AdminDashboard extends React.Component {
                                                )
                                            })
                                        }
-                                       </tbody>
-                                   </table> :
-                                   <h1> No Data Found</h1>
+                                       </tbody> :
+                                   <h4> No Data Found</h4>
                            }
+                           </table>
                        </div>
                    </div>
                 </div>

@@ -23,11 +23,11 @@ exports.login = async (data) => {
     const existEmp = await Emp.findByDetails(data.username, data.username, mobile);
 
     if(!existEmp){
-        return { success: false, message: 'EMP_NOT_EXIST', data: existHR };
+        return { success: false, message: 'EMP_NOT_EXIST', data: existEmp };
     }
 
     if (!bcrypt.compareSync(data.password,existEmp.password)) {
-        return { success: false, message: 'PSW_INC', data: existHR };
+        return { success: false, message: 'PSW_INC', data: existEmp };
     }
 
     return { success: true, data: existEmp, message: 'LOGIN_SUCCESS' };
