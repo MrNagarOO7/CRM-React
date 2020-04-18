@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import './emp.css';
+import profileImg from '../../asset/profile.png';
 
 class EmpDashboard extends React.Component {
     constructor(props) {
@@ -43,7 +44,7 @@ class EmpDashboard extends React.Component {
             <div className={'AdminDashboard'}>
                    <div className={'container'}>
                        <div className="card">
-                           <img src="https://www.mdcacademy.org/wp-content/uploads/2019/08/blank-profile-picture-973460_1280-1200x1200.png" alt="John" style={{"width":"100%"}}></img>
+                           <img src={profileImg} alt="Default" style={{"width":"100%"}}></img>
                                <h1>{this.state.emp.name ? this.state.emp.name : "Default"}</h1>
                                <p className="title">{this.state.emp.email ? this.state.emp.email : "Default"}</p>
                                <p>{this.state.emp.id ? this.state.emp.id : "Default"}</p>
