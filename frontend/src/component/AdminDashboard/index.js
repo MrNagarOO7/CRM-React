@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import socket from '../../services/socket';
 
 class AdminDashboard extends React.Component {
     constructor(props) {
@@ -14,7 +15,8 @@ class AdminDashboard extends React.Component {
                 username: '',
                 email: '',
                 password: ''
-            }
+            },
+            client: socket()
         };
     }
 
@@ -99,6 +101,23 @@ class AdminDashboard extends React.Component {
         this.fetchEmployeeList();
     }
 
+    fetchEmps = (data) => {
+        console.log(data);
+        const emps = Object.assign([], this.state.emps);
+        for(let emp of emps){
+            if(data.hasOwnProperty(emp._id)){
+                emp.status = data[emp._id].status;
+                emp.login_time = data[emp._id].login;
+            }
+        }
+        this.setState({emps})
+    };
+
+    componentDidMount() {
+        this.state.client.registerHandler(this.fetchEmps);
+        this.state.client.loggedEmps();
+    }
+
     render () {
         return(
             <div className={'AdminDashboard'}>
@@ -149,7 +168,7 @@ class AdminDashboard extends React.Component {
                                                        <th scope="row">{index+1}</th>
                                                        <td>{emp.name}</td>
                                                        <td>{emp.email}</td>
-                                                       <td>{emp.status}</td>
+                                                       <td style={emp.status === 'Offline' ? {'color':'red'} : {'color':'green'}} >{emp.status}</td>
                                                        <td>{emp.login_time}</td>
                                                    </tr>
                                                )

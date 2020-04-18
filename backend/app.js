@@ -85,3 +85,5 @@ const server = app.listen(listingport,() => {
   logger.info(`Server Listening on ${listingport}`);
   console.log(`Server Listening on ${listingport}`);
 });
+
+require('./helpers/socket').init(server);

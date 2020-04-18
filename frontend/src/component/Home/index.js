@@ -1,6 +1,7 @@
 import React from 'react';
 import './home.css';
 import axios from "axios";
+import socket from "../../services/socket";
 
 class Home extends React.Component {
     constructor(props) {
@@ -10,7 +11,8 @@ class Home extends React.Component {
             login: {
                 username: '',
                 password: ''
-            }
+            },
+            client: socket()
         };
     }
 
@@ -40,6 +42,7 @@ class Home extends React.Component {
                     console.log(resp);
                     localStorage.setItem('token', resp.data.data);
                     localStorage.setItem('user', user);
+                    this.state.client.login(resp.data.data);
                     this.props.history.push('/'+ user + '/dashboard')
                 })
                 .catch(err => {
